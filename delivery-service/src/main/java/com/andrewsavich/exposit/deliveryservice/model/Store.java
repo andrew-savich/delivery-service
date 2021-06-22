@@ -47,6 +47,4 @@ public class Store {
 		this.products = products;
 	}
 	
-	
-	
 }
