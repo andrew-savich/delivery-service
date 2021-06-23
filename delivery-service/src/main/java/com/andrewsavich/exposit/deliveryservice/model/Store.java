@@ -1,6 +1,9 @@
 package com.andrewsavich.exposit.deliveryservice.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Store {
 	private int id;
@@ -45,6 +48,29 @@ public class Store {
 
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
+	}
+
+	public void showProducts() {
+		if(products.isEmpty()) {
+			System.out.println("The store " + getTitle() + " has no products");
+			return;
+		}
+		
+		for (Product product : products) {
+			System.out.println(product);
+		}
+	}
+	
+	public ArrayList<Product> sortProductsByPriceUp() {
+		List<Product> sortedProductsByPriceUp = getProducts().stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
+		
+		return new ArrayList<Product>(sortedProductsByPriceUp);
+	}
+	
+	public ArrayList<Product> sortProductsByPriceDown() {
+		List<Product> sortedProductsByPriceDown = getProducts().stream().sorted(Comparator.comparing(Product::getPrice).reversed()).collect(Collectors.toList());
+		
+		return new ArrayList<Product>(sortedProductsByPriceDown);
 	}
 	
 }
