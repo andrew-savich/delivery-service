@@ -69,13 +69,14 @@ public class DeliveryService {
 			System.out.println(position);
 		}
 	}
-	
-	public List<StorePosition> sortPositionsByPrice(){
-		
-		return getAllPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
-		
+
+	public List<StorePosition> sortPositionsByPrice() {
+
+		return getAllPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice))
+				.collect(Collectors.toList());
+
 	}
-	
+
 	public void showSortedPositionsByPriceUp() {
 		List<StorePosition> sortedPositionsByPriceUp = sortPositionsByPrice();
 
@@ -83,21 +84,45 @@ public class DeliveryService {
 			System.out.println(position);
 		}
 	}
-	
+
 	public void showSortedPositionsByPriceDown() {
-		List<StorePosition> sortedPositionsByPriceDown = sortPositionsByPrice().stream().sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());;
+		List<StorePosition> sortedPositionsByPriceDown = sortPositionsByPrice().stream()
+				.sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
+		;
 
 		for (StorePosition position : sortedPositionsByPriceDown) {
 			System.out.println(position);
 		}
 	}
-	
-	public List<StorePosition> getPositionsFormStore(Store store){
+
+	public List<StorePosition> getPositionsFormStore(Store store) {
 		if (!stores.contains(store)) {
-			throw new IllegalArgumentException("The store + " + store.getTitle() + " hasn't been registerein our service");
+			throw new IllegalArgumentException(
+					"The store + " + store.getTitle() + " hasn't been registerein our service");
+		}
+
+		return store.getPositions();
+	}
+
+	public List<StorePosition> getPositionsByPrice(double minPrice, double maxPrice) {
+		if (minPrice < 0 || maxPrice <= 0) {
+			throw new IllegalArgumentException("Invalid price (less than zero)");
+		}
+
+		if (minPrice > maxPrice) {
+			throw new IllegalArgumentException("Invalid price (min price is bigger than maxPrice)");
+		}
+
+		List<StorePosition> positionsByPrice = new ArrayList<>();
+
+		for (StorePosition position : getAllPositions()) {
+			if (position.getPrice() >= minPrice && position.getPrice() <= maxPrice) {
+				positionsByPrice.add(position);
+			}
 		}
 		
-		return store.getPositions();
+		return positionsByPrice;
+
 	}
 
 }
