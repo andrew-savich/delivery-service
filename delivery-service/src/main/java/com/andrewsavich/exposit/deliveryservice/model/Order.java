@@ -1,13 +1,14 @@
 package com.andrewsavich.exposit.deliveryservice.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 	private int id;
 	private Client client;
-	private ArrayList<Product> products;
+	private List<Product> products = new ArrayList<>();
 	
-	public Order(int id, Client client, ArrayList<Product> products) {
+	public Order(int id, Client client, List<Product> products) {
 		this.id = id;
 		this.client = client;
 		this.products = products;
@@ -29,7 +30,7 @@ public class Order {
 		this.client = client;
 	}
 
-	public ArrayList<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
