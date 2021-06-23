@@ -1,10 +1,13 @@
 package com.andrewsavich.exposit.deliveryservice.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.Order;
+import com.andrewsavich.exposit.deliveryservice.model.Product;
 import com.andrewsavich.exposit.deliveryservice.model.Store;
 
 public class DeliveryService {
@@ -37,7 +40,7 @@ public class DeliveryService {
 
 	public void registerNewClient(Client client) {
 		if (clients.contains(client)) {
-			System.out.println("The client: " + client + " exists in our Delivery Service");
+			System.out.println("The client: " + client + " exists in our delivery service");
 			return;
 		}
 
@@ -55,5 +58,34 @@ public class DeliveryService {
 			store.showProducts();
 		}
 	}
-
+	
+	public void showSortedProductsByPriceUp() {
+		List<Product> sortedProductsByPriceUp = new ArrayList<>();
+		
+		for(Store store : stores) {
+			sortedProductsByPriceUp.addAll(store.getProducts());
+		}
+		
+		sortedProductsByPriceUp.stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
+		
+		for(Product product : sortedProductsByPriceUp) {
+			System.out.println(product);
+		}
+		
+	}
+	
+	public void showSortedProductsByPriceDown() {
+		List<Product> sortedProductsByPriceDown = new ArrayList<>();
+		
+		for(Store store : stores) {
+			sortedProductsByPriceDown.addAll(store.getProducts());
+		}
+		
+		sortedProductsByPriceDown.stream().sorted(Comparator.comparing(Product::getPrice).reversed()).collect(Collectors.toList());
+		
+		for(Product product : sortedProductsByPriceDown) {
+			System.out.println(product);
+		}
+		
+	}
 }
