@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.Order;
-import com.andrewsavich.exposit.deliveryservice.model.Product;
 import com.andrewsavich.exposit.deliveryservice.model.Store;
+import com.andrewsavich.exposit.deliveryservice.model.StorePosition;
 
 public class DeliveryService {
 	private String title;
@@ -47,45 +47,51 @@ public class DeliveryService {
 		clients.add(client);
 	}
 
-	public void showAllProducts() {
-		if (stores.isEmpty()) {
-			System.out.println("Our delivery service has no products, because registered stores are absent");
+	public List<StorePosition> getAllPositions() {
+		List<StorePosition> allStorePositions = new ArrayList<>();
+
+		for (Store store : stores) {
+			allStorePositions.addAll(store.getPositions());
+		}
+
+		return allStorePositions;
+	}
+
+	public void showAllPositions() {
+		List<StorePosition> allPositions = getAllPositions();
+
+		if (allPositions.isEmpty()) {
+			System.out.println("Our delivery service has no positions of products");
 			return;
 		}
 
-		for (Store store : stores) {
-			System.out.println("Products from: " + store.getTitle() + ":");
-			store.showProducts();
+		for (StorePosition position : allPositions) {
+			System.out.println(position);
 		}
 	}
 	
-	public void showSortedProductsByPriceUp() {
-		List<Product> sortedProductsByPriceUp = new ArrayList<>();
+	public List<StorePosition> sortPositionsByPrice(){
 		
-		for(Store store : stores) {
-			sortedProductsByPriceUp.addAll(store.getProducts());
-		}
-		
-		sortedProductsByPriceUp.stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
-		
-		for(Product product : sortedProductsByPriceUp) {
-			System.out.println(product);
-		}
+		return getAllPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
 		
 	}
 	
-	public void showSortedProductsByPriceDown() {
-		List<Product> sortedProductsByPriceDown = new ArrayList<>();
-		
-		for(Store store : stores) {
-			sortedProductsByPriceDown.addAll(store.getProducts());
+	public void showSortedPositionsByPriceUp() {
+		List<StorePosition> sortedPositionsByPriceUp = sortPositionsByPrice();
+
+		for (StorePosition position : sortedPositionsByPriceUp) {
+			System.out.println(position);
 		}
-		
-		sortedProductsByPriceDown.stream().sorted(Comparator.comparing(Product::getPrice).reversed()).collect(Collectors.toList());
-		
-		for(Product product : sortedProductsByPriceDown) {
-			System.out.println(product);
-		}
-		
+
 	}
+	
+	public void showSortedPositionsByPriceDown() {
+		List<StorePosition> sortedPositionsByPriceDown = sortPositionsByPrice().stream().sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());;
+
+		for (StorePosition position : sortedPositionsByPriceDown) {
+			System.out.println(position);
+		}
+
+	}
+
 }
