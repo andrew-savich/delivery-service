@@ -82,7 +82,6 @@ public class DeliveryService {
 		for (StorePosition position : sortedPositionsByPriceUp) {
 			System.out.println(position);
 		}
-
 	}
 	
 	public void showSortedPositionsByPriceDown() {
@@ -91,7 +90,14 @@ public class DeliveryService {
 		for (StorePosition position : sortedPositionsByPriceDown) {
 			System.out.println(position);
 		}
-
+	}
+	
+	public List<StorePosition> getPositionsFormStore(Store store){
+		if (!stores.contains(store)) {
+			throw new IllegalArgumentException("The store + " + store.getTitle() + " hasn't been registerein our service");
+		}
+		
+		return store.getPositions();
 	}
 
 }
