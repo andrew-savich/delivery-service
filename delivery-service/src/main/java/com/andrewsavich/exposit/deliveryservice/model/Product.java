@@ -1,21 +1,17 @@
 package com.andrewsavich.exposit.deliveryservice.model;
 
-import java.util.Set;
-
 public class Product {
 	
 	private int id;
 	private String title;
 	private String description;
-	private Set<ProductType> type;
-	private double price;
+	private ProductType type;
 	
-	public Product(int id, String title, String description, Set<ProductType> type, double price) {
+	public Product(int id, String title, String description, ProductType type) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.type = type;
-		this.price = price;
 	}
 
 	public int getId() {
@@ -42,23 +38,19 @@ public class Product {
 		this.description = description;
 	}
 
-	public Set<ProductType> getType() {
+	public ProductType getType() {
 		return type;
 	}
 
-	public void setType(Set<ProductType> type) {
+	public void setType(ProductType type) {
 		this.type = type;
 	}
 
-	public double getPrice() {
-		return price;
-	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", title=" + title + ", description=" + description + ", type=" + type + "]";
 	}
-	
-	
 	
 	
 }

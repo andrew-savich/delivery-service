@@ -9,14 +9,8 @@ public class Store {
 	private int id;
 	private String title;
 	private String description;
-	private ArrayList<Product> products;
+	private ArrayList<StorePosition> positions;
 	
-	public Store(int id, String title, String description, ArrayList<Product> products) {
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.products = products;
-	}
 
 	public int getId() {
 		return id;
@@ -42,35 +36,35 @@ public class Store {
 		this.description = description;
 	}
 
-	public ArrayList<Product> getProducts() {
-		return products;
+	public ArrayList<StorePosition> getPositions() {
+		return positions;
 	}
 
-	public void setProducts(ArrayList<Product> products) {
-		this.products = products;
+	public void setPositions(ArrayList<StorePosition> positions) {
+		this.positions = positions;
 	}
 
-	public void showProducts() {
-		if(products.isEmpty()) {
-			System.out.println("The store " + getTitle() + " has no products");
+	public void showPositions() {
+		if(positions.isEmpty()) {
+			System.out.println("The store " + getTitle() + " has no positions");
 			return;
 		}
 		
-		for (Product product : products) {
-			System.out.println(product);
+		for (StorePosition position : positions) {
+			System.out.println(position);
 		}
 	}
 	
-	public ArrayList<Product> sortProductsByPriceUp() {
-		List<Product> sortedProductsByPriceUp = getProducts().stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
+	public ArrayList<StorePosition> sortPositionsByPriceUp() {
+		List<StorePosition> sortedPositionsByPriceUp = getPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
 		
-		return new ArrayList<Product>(sortedProductsByPriceUp);
+		return new ArrayList<StorePosition>(sortedPositionsByPriceUp);
 	}
 	
-	public ArrayList<Product> sortProductsByPriceDown() {
-		List<Product> sortedProductsByPriceDown = getProducts().stream().sorted(Comparator.comparing(Product::getPrice).reversed()).collect(Collectors.toList());
+	public ArrayList<StorePosition> sortPositionsByPriceDown() {
+		List<StorePosition> sortedPositionsByPriceDown = getPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
 		
-		return new ArrayList<Product>(sortedProductsByPriceDown);
+		return new ArrayList<StorePosition>(sortedPositionsByPriceDown);
 	}
 	
 }
