@@ -10,7 +10,6 @@ public class Store {
 	private String title;
 	private String description;
 	private ArrayList<StorePosition> positions;
-	
 
 	public int getId() {
 		return id;
@@ -44,27 +43,41 @@ public class Store {
 		this.positions = positions;
 	}
 
-	public void showPositions() {
-		if(positions.isEmpty()) {
-			System.out.println("The store " + getTitle() + " has no positions");
+	public void addPosition(StorePosition position) {
+		if (positions.contains(position)) {
+			int indexExistingPosition = positions.indexOf(position);
+			int quantityProductsInExistingPosition = positions.get(indexExistingPosition).getQuantity();
+			positions.get(indexExistingPosition).setQuantity(++quantityProductsInExistingPosition);
 			return;
 		}
 		
+		position.setStore(this);
+		positions.add(position);
+	}
+
+	public void showAllPositions() {
+		if (positions.isEmpty()) {
+			System.out.println("Our delivery servise has no positions");
+			return;
+		}
+
 		for (StorePosition position : positions) {
 			System.out.println(position);
 		}
 	}
-	
+
 	public ArrayList<StorePosition> sortPositionsByPriceUp() {
-		List<StorePosition> sortedPositionsByPriceUp = getPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
-		
+		List<StorePosition> sortedPositionsByPriceUp = getPositions().stream()
+				.sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
+
 		return new ArrayList<StorePosition>(sortedPositionsByPriceUp);
 	}
-	
+
 	public ArrayList<StorePosition> sortPositionsByPriceDown() {
-		List<StorePosition> sortedPositionsByPriceDown = getPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
-		
+		List<StorePosition> sortedPositionsByPriceDown = getPositions().stream()
+				.sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
+
 		return new ArrayList<StorePosition>(sortedPositionsByPriceDown);
 	}
-	
+
 }
