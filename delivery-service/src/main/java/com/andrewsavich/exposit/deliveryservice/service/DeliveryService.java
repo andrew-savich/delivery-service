@@ -2,7 +2,9 @@ package com.andrewsavich.exposit.deliveryservice.service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.andrewsavich.exposit.deliveryservice.model.Client;
@@ -12,9 +14,10 @@ import com.andrewsavich.exposit.deliveryservice.model.StorePosition;
 
 public class DeliveryService {
 	private String title;
+	private int orderId = 0;
 
 	private List<Store> stores = new ArrayList<>();
-	private List<Client> clients = new ArrayList<>();
+	private Map<String, Client> clients = new HashMap<>();
 	private List<Order> orders = new ArrayList<>();
 
 	public DeliveryService(String title) {
@@ -39,12 +42,42 @@ public class DeliveryService {
 	}
 
 	public void registerNewClient(Client client) {
-		if (clients.contains(client)) {
-			System.out.println("The client: " + client + " exists in our delivery service");
+		if (clients.containsKey(client.getUsername())) {
+			System.out.println("The client with username: " + client.getUsername() + " exists in our delivery service");
 			return;
 		}
 
-		clients.add(client);
+		clients.put(client.getUsername(), client);
+	}
+
+	public void registerNewClient(String username, String fullName, String address) {
+		Client newClient = new Client(username, fullName, address);
+
+		if (clients.containsKey(newClient.getUsername())) {
+			System.out.println("Client with username: " + newClient.getUsername() + " already exist in our system");
+			return;
+		}
+
+		clients.put(newClient.getUsername(), newClient);
+	}
+
+	public void removeClient(Client client) {
+		if (clients.containsKey(client.getUsername())) {
+			clients.remove(client.getUsername());
+			System.out.println("Client " + client.getUsername() + " was removed from our system");
+			return;
+		}
+
+		System.out.println("Client " + client.getUsername() + " didn't register in our system");
+	}
+
+	public Client getClientByUsername(String username) {
+		if (clients.containsKey(username)) {
+			Client client = clients.get(username);
+			return client;
+		}
+
+		throw new IllegalArgumentException("Client " + username + " doesn't exist in our system");
 	}
 
 	public List<StorePosition> getAllPositions() {
@@ -70,15 +103,9 @@ public class DeliveryService {
 		}
 	}
 
-	public List<StorePosition> sortPositionsByPrice() {
-
-		return getAllPositions().stream().sorted(Comparator.comparing(StorePosition::getPrice))
-				.collect(Collectors.toList());
-
-	}
-
 	public void showSortedPositionsByPriceUp() {
-		List<StorePosition> sortedPositionsByPriceUp = sortPositionsByPrice();
+		List<StorePosition> sortedPositionsByPriceUp = getAllPositions().stream()
+				.sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
 
 		for (StorePosition position : sortedPositionsByPriceUp) {
 			System.out.println(position);
@@ -86,9 +113,8 @@ public class DeliveryService {
 	}
 
 	public void showSortedPositionsByPriceDown() {
-		List<StorePosition> sortedPositionsByPriceDown = sortPositionsByPrice().stream()
+		List<StorePosition> sortedPositionsByPriceDown = getAllPositions().stream()
 				.sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
-		;
 
 		for (StorePosition position : sortedPositionsByPriceDown) {
 			System.out.println(position);
@@ -110,7 +136,7 @@ public class DeliveryService {
 		}
 
 		if (minPrice > maxPrice) {
-			throw new IllegalArgumentException("Invalid price (min price is bigger than maxPrice)");
+			throw new IllegalArgumentException("Invalid price (min price is bigger than max price)");
 		}
 
 		List<StorePosition> positionsByPrice = new ArrayList<>();
@@ -120,7 +146,7 @@ public class DeliveryService {
 				positionsByPrice.add(position);
 			}
 		}
-		
+
 		return positionsByPrice;
 
 	}

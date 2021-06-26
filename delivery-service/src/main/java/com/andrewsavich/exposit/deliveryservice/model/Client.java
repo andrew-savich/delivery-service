@@ -1,22 +1,22 @@
 package com.andrewsavich.exposit.deliveryservice.model;
 
 public class Client {
-	private int id;
+	private String username;
 	private String fullName;
-	private String fullAddress;
+	private String address;
 	
-	public Client(int id, String fullName, String fullAddress) {
-		this.id = id;
+	public Client(String username, String fullName, String address) {
+		this.username = username;
 		this.fullName = fullName;
-		this.fullAddress = fullAddress;
+		this.address = address;
 	}
 
-	public int getId() {
-		return id;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getFullName() {
@@ -27,12 +27,14 @@ public class Client {
 		this.fullName = fullName;
 	}
 
-	public String getFullAddress() {
-		return fullAddress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setFullAddress(String fullAddress) {
-		this.fullAddress = fullAddress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
+
+
 }
