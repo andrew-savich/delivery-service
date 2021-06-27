@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.Order;
 import com.andrewsavich.exposit.deliveryservice.model.Store;
-import com.andrewsavich.exposit.deliveryservice.model.StorePosition;
+import com.andrewsavich.exposit.deliveryservice.model.Position;
 
 public class DeliveryService {
 	private String title;
@@ -80,8 +80,8 @@ public class DeliveryService {
 		throw new IllegalArgumentException("Client " + username + " doesn't exist in our system");
 	}
 
-	public List<StorePosition> getAllPositions() {
-		List<StorePosition> allStorePositions = new ArrayList<>();
+	public List<Position> getAllPositions() {
+		List<Position> allStorePositions = new ArrayList<>();
 
 		for (Store store : stores) {
 			allStorePositions.addAll(store.getPositions());
@@ -91,37 +91,37 @@ public class DeliveryService {
 	}
 
 	public void showAllPositions() {
-		List<StorePosition> allPositions = getAllPositions();
+		List<Position> allPositions = getAllPositions();
 
 		if (allPositions.isEmpty()) {
 			System.out.println("Our delivery service has no positions of products");
 			return;
 		}
 
-		for (StorePosition position : allPositions) {
+		for (Position position : allPositions) {
 			System.out.println(position);
 		}
 	}
 
 	public void showSortedPositionsByPriceUp() {
-		List<StorePosition> sortedPositionsByPriceUp = getAllPositions().stream()
-				.sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
+		List<Position> sortedPositionsByPriceUp = getAllPositions().stream()
+				.sorted(Comparator.comparing(Position::getPrice)).collect(Collectors.toList());
 
-		for (StorePosition position : sortedPositionsByPriceUp) {
+		for (Position position : sortedPositionsByPriceUp) {
 			System.out.println(position);
 		}
 	}
 
 	public void showSortedPositionsByPriceDown() {
-		List<StorePosition> sortedPositionsByPriceDown = getAllPositions().stream()
-				.sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
+		List<Position> sortedPositionsByPriceDown = getAllPositions().stream()
+				.sorted(Comparator.comparing(Position::getPrice).reversed()).collect(Collectors.toList());
 
-		for (StorePosition position : sortedPositionsByPriceDown) {
+		for (Position position : sortedPositionsByPriceDown) {
 			System.out.println(position);
 		}
 	}
 
-	public List<StorePosition> getPositionsFormStore(Store store) {
+	public List<Position> getPositionsFormStore(Store store) {
 		if (!stores.contains(store)) {
 			throw new IllegalArgumentException(
 					"The store + " + store.getTitle() + " hasn't been registerein our service");
@@ -130,7 +130,7 @@ public class DeliveryService {
 		return store.getPositions();
 	}
 
-	public List<StorePosition> getPositionsByPrice(double minPrice, double maxPrice) {
+	public List<Position> getPositionsByPrice(double minPrice, double maxPrice) {
 		if (minPrice < 0 || maxPrice <= 0) {
 			throw new IllegalArgumentException("Invalid price (less than zero)");
 		}
@@ -139,9 +139,9 @@ public class DeliveryService {
 			throw new IllegalArgumentException("Invalid price (min price is bigger than max price)");
 		}
 
-		List<StorePosition> positionsByPrice = new ArrayList<>();
+		List<Position> positionsByPrice = new ArrayList<>();
 
-		for (StorePosition position : getAllPositions()) {
+		for (Position position : getAllPositions()) {
 			if (position.getPrice() >= minPrice && position.getPrice() <= maxPrice) {
 				positionsByPrice.add(position);
 			}
