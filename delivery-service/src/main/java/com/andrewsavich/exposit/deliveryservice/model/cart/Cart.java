@@ -29,8 +29,6 @@ public class Cart {
 			
 		}
 	}
-	
-	
 
 	public Client getClient() {
 		return client;
@@ -47,6 +45,15 @@ public class Cart {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-
+	
+	public double getSummaryCartPrice() {
+		double summaryPrice = 0.0;
+		
+		for(Item item : items) {
+			summaryPrice += item.getSummaryItemPrice();
+		}
+		
+		return summaryPrice;
+	}
 
 }

@@ -38,10 +38,14 @@ public class Item {
 	public double getPrice() {
 		return price;
 	}
+	
+	public double getSummaryItemPrice() {
+		return getPrice() * quantity;
+	}
 
 	@Override
 	public String toString() {
-		return "Item [title=" + title + ", product=" + product.getTitle() + ", from store: " + store.getTitle() + " quantity=" + quantity + ", price one=" + price + " summary price: " + price * quantity + "]";
+		return "Item [title=" + title + ", product=" + product.getTitle() + ", from store: " + store.getTitle() + " quantity=" + quantity + ", price one=" + price + " summary price: " + getSummaryItemPrice() + "]";
 	}
 	
 }

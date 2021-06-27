@@ -149,18 +149,24 @@ public class DeliveryService {
 
 		return store.getPositions();
 	}
-	
+
 	public void showPositionsByStore(Store store) {
-		for(Position position : store.getPositions()) {
+		for (Position position : store.getPositions()) {
 			System.out.println(position);
+		}
+	}
+
+	public void showPositionsByProductTypes(ProductType type) {
+		System.out.println("Products of type " + type + ": ");
+		for (Position position : getAllPositions()) {
+			if (position.getProduct().getType().is(type)) {
+				System.out.println(position);
+			}
+
 		}
 	}
 	
-	public void showPositionsByProductTypes(ProductType ... types) {
-		for(Position position : getAllPositions()) {
-			System.out.println(position);
-		}
-	}
+	
 
 	public List<Position> getPositionsByPrice(double minPrice, double maxPrice) {
 		if (minPrice < 0 || maxPrice <= 0) {
