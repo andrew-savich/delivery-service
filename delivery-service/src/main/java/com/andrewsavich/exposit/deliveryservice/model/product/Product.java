@@ -1,27 +1,17 @@
-package com.andrewsavich.exposit.deliveryservice.model;
+package com.andrewsavich.exposit.deliveryservice.model.product;
 
 public class Product {
 	
-	private int id;
 	private String title;
 	private String description;
 	private ProductType type;
 	
-	public Product(int id, String title, String description, ProductType type) {
-		this.id = id;
+	public Product(String title, String description, ProductType type) {
 		this.title = title;
 		this.description = description;
 		this.type = type;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
- 
 	public String getTitle() {
 		return title;
 	}
@@ -45,11 +35,11 @@ public class Product {
 	public void setType(ProductType type) {
 		this.type = type;
 	}
-
+	
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", title=" + title + ", description=" + description + ", type=" + type + "]";
+		return "Product [title=" + title + ", description=" + description + ", type=" + type + "]";
 	}
 	
 	

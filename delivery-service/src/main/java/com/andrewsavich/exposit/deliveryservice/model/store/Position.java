@@ -1,6 +1,6 @@
 package com.andrewsavich.exposit.deliveryservice.model.store;
 
-import com.andrewsavich.exposit.deliveryservice.model.Product;
+import com.andrewsavich.exposit.deliveryservice.model.product.Product;
 
 public class Position {
 	private String title;
@@ -9,11 +9,20 @@ public class Position {
 	private int quantity;
 	private Store store;
 	
-	public Position(Product product, double price, int quantity) {
+	public Position(Product product, double price, int quantity, Store store) {
 		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 		this.title = product.getTitle();
+		this.store = store;
+	}
+	
+	public Position(Product product, double price, Store store) {
+		this.product = product;
+		this.price = price;
+		this.quantity = 1;
+		this.title = product.getTitle();
+		this.store = store;
 	}
 	
 	public String getTitle() {
@@ -42,6 +51,14 @@ public class Position {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	public void increaseQuantity(int quantity) {
+		this.quantity += quantity;
+	}
+	
+	public void decreaseQuantity() {
+		--this.quantity;
 	}
 
 	public Store getStore() {
@@ -79,7 +96,7 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return "StorePosition [title=" + title + ", product=" + product + ", price=" + price + ", quantity=" + quantity
+		return "Position [title=" + title + ", product=" + product + ", price=" + price + ", quantity=" + quantity
 				+ ", store=" + store + "]";
 	}
 	

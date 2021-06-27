@@ -1,6 +1,6 @@
 package com.andrewsavich.exposit.deliveryservice.model.cart;
 
-import com.andrewsavich.exposit.deliveryservice.model.Product;
+import com.andrewsavich.exposit.deliveryservice.model.product.Product;
 import com.andrewsavich.exposit.deliveryservice.model.store.Position;
 
 public class Item {

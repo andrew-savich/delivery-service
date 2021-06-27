@@ -5,18 +5,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.andrewsavich.exposit.deliveryservice.model.product.Product;
+
 public class Store {
-	private int id;
 	private String title;
 	private String description;
-	private ArrayList<Position> positions;
+	private List<Position> positions;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public Store(String title, String description) {
+		this.title = title;
+		this.description = description;
+		this.positions = new ArrayList<>();
 	}
 
 	public String getTitle() {
@@ -35,26 +34,51 @@ public class Store {
 		this.description = description;
 	}
 
-	public ArrayList<Position> getPositions() {
-		return positions;
+	public void createPosition(Product product, double price, int quantity) {
+		Position newPosition = new Position(product, price, quantity, this);
+
+		if (positions.contains(newPosition)) {
+			System.out
+					.println("Position " + product.getTitle() + " is exist, you should add product in this position!");
+		} else {
+			positions.add(newPosition);
+		}
 	}
 
-	public void setPositions(ArrayList<Position> positions) {
-		this.positions = positions;
+	
+	public void addProduct(Product product, int quantity) {
+		if (isExistPositionWithThisProduct(product)) {
+			getPositionByProduct(product).increaseQuantity(quantity);
+		} else {
+			System.out
+					.println("Position " + product.getTitle() + " doesn't exist, you should create position with price and quantity");
+		}
+	}
+	
+	public void removeProduct(Product product) {
+		getPositionByProduct(product).decreaseQuantity();
 	}
 
-	public void addPosition(Position position) {
-		if (positions.contains(position)) {
-			int indexExistingPosition = positions.indexOf(position);
-			int quantityProductsInExistingPosition = positions.get(indexExistingPosition).getQuantity();
-			positions.get(indexExistingPosition).setQuantity(++quantityProductsInExistingPosition);
-			return;
+	private boolean isExistPositionWithThisProduct(Product product) {
+		for (Position position : positions) {
+			if (position.getTitle().equals(product.getTitle())) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+	
+	private Position getPositionByProduct(Product product) {
+		for (Position position : positions) {
+			if (position.getTitle().equals(product.getTitle())) {
+				return position;
+			}
 		}
 		
-		position.setStore(this);
-		positions.add(position);
+		return null;
 	}
-
+	
 	public void showAllPositions() {
 		if (positions.isEmpty()) {
 			System.out.println("Our delivery servise has no positions");
@@ -64,6 +88,10 @@ public class Store {
 		for (Position position : positions) {
 			System.out.println(position);
 		}
+	}
+	
+	public List<Position> getPositions() {
+		return positions;
 	}
 
 	public ArrayList<Position> sortPositionsByPriceUp() {

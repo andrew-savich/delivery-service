@@ -3,6 +3,8 @@ package com.andrewsavich.exposit.deliveryservice.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.andrewsavich.exposit.deliveryservice.model.product.Product;
+
 public class Order {
 	private int id;
 	private Client client;

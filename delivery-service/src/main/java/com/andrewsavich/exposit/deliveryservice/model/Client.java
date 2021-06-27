@@ -38,7 +38,10 @@ public class Client {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	@Override
+	public String toString() {
+		return "Client [username=" + username + ", fullName=" + fullName + ", address=" + address + "]";
+	}
 	
-
-
 }

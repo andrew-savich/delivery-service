@@ -55,10 +55,10 @@ public class DeliveryService {
 
 		if (clients.containsKey(newClient.getUsername())) {
 			System.out.println("Client with username: " + newClient.getUsername() + " already exist in our system");
-			return;
+		} else {
+			clients.put(newClient.getUsername(), newClient);
 		}
-
-		clients.put(newClient.getUsername(), newClient);
+		
 	}
 
 	public void removeClient(Client client) {
@@ -78,6 +78,22 @@ public class DeliveryService {
 		}
 
 		throw new IllegalArgumentException("Client " + username + " doesn't exist in our system");
+	}
+	
+	private Map<String, Client> getAllClients(){
+		return clients;
+	}
+	
+	public void showAllClients() {
+		List<Client> clients = new ArrayList<>(getAllClients().values());
+		
+		if(clients.isEmpty()) {
+			System.out.println("Our system has no registered clients");
+		} else {
+			for(Client client: clients) {
+				System.out.println("Client: " + client);
+			}
+		}
 	}
 
 	public List<Position> getAllPositions() {
@@ -99,7 +115,8 @@ public class DeliveryService {
 		}
 
 		for (Position position : allPositions) {
-			System.out.println(position);
+			System.out.println("Position: " + position.getTitle() + " type: " + position.getProduct().getType() + " price:" + position.getPrice() + ", quantiy: "
+					+ position.getQuantity() + ", store: " + position.getStore().getTitle());
 		}
 	}
 
