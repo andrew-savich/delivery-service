@@ -9,7 +9,7 @@ public class Store {
 	private int id;
 	private String title;
 	private String description;
-	private ArrayList<StorePosition> positions;
+	private ArrayList<Position> positions;
 
 	public int getId() {
 		return id;
@@ -35,15 +35,15 @@ public class Store {
 		this.description = description;
 	}
 
-	public ArrayList<StorePosition> getPositions() {
+	public ArrayList<Position> getPositions() {
 		return positions;
 	}
 
-	public void setPositions(ArrayList<StorePosition> positions) {
+	public void setPositions(ArrayList<Position> positions) {
 		this.positions = positions;
 	}
 
-	public void addPosition(StorePosition position) {
+	public void addPosition(Position position) {
 		if (positions.contains(position)) {
 			int indexExistingPosition = positions.indexOf(position);
 			int quantityProductsInExistingPosition = positions.get(indexExistingPosition).getQuantity();
@@ -61,23 +61,23 @@ public class Store {
 			return;
 		}
 
-		for (StorePosition position : positions) {
+		for (Position position : positions) {
 			System.out.println(position);
 		}
 	}
 
-	public ArrayList<StorePosition> sortPositionsByPriceUp() {
-		List<StorePosition> sortedPositionsByPriceUp = getPositions().stream()
-				.sorted(Comparator.comparing(StorePosition::getPrice)).collect(Collectors.toList());
+	public ArrayList<Position> sortPositionsByPriceUp() {
+		List<Position> sortedPositionsByPriceUp = getPositions().stream()
+				.sorted(Comparator.comparing(Position::getPrice)).collect(Collectors.toList());
 
-		return new ArrayList<StorePosition>(sortedPositionsByPriceUp);
+		return new ArrayList<Position>(sortedPositionsByPriceUp);
 	}
 
-	public ArrayList<StorePosition> sortPositionsByPriceDown() {
-		List<StorePosition> sortedPositionsByPriceDown = getPositions().stream()
-				.sorted(Comparator.comparing(StorePosition::getPrice).reversed()).collect(Collectors.toList());
+	public ArrayList<Position> sortPositionsByPriceDown() {
+		List<Position> sortedPositionsByPriceDown = getPositions().stream()
+				.sorted(Comparator.comparing(Position::getPrice).reversed()).collect(Collectors.toList());
 
-		return new ArrayList<StorePosition>(sortedPositionsByPriceDown);
+		return new ArrayList<Position>(sortedPositionsByPriceDown);
 	}
 
 }

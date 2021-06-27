@@ -1,17 +1,21 @@
 package com.andrewsavich.exposit.deliveryservice.model;
 
-public class StorePosition {
+public class Position {
 	private String title;
 	private Product product;
 	private double price;
 	private int quantity;
 	private Store store;
 	
-	public StorePosition(Product product, double price, int quantity) {
+	public Position(Product product, double price, int quantity) {
 		this.product = product;
 		this.price = price;
 		this.quantity = quantity;
 		this.title = product.getTitle();
+	}
+	
+	public String getTitle() {
+		return title;
 	}
 
 	public Product getProduct() {
@@ -62,7 +66,7 @@ public class StorePosition {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		StorePosition other = (StorePosition) obj;
+		Position other = (Position) obj;
 		if (title == null) {
 			if (other.title != null)
 				return false;
