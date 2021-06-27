@@ -25,13 +25,23 @@ public class DeliveryRunner {
 		vek21.createPosition(ipnoneX, 1299.99, 8);
 		vek21.addProduct(ipnoneX, 521);
 		
-		vek21.removeProduct(samsungS20);
 		
 		deliveryService.registerNewStore(vek21);
 		deliveryService.registerNewClient(andrew);
 		
 		deliveryService.showAllPositions();
-		deliveryService.showAllClients();
+		
+		deliveryService.addProductsToClientCart(andrew, 1, 2);
+		deliveryService.addProductsToClientCart(andrew, 0, 1);
+		
+		deliveryService.showClientCart(andrew);
+		
+		deliveryService.deliverProductsToClient(andrew);
+		
+		deliveryService.showClientCart(andrew);
+		
+		
+		deliveryService.showAllPositions();
 		
 		
 	}

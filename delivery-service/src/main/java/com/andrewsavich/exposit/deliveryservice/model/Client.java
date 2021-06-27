@@ -38,6 +38,10 @@ public class Client {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public Cart getCart() {
+		return cart;
+	}
 
 	@Override
 	public String toString() {

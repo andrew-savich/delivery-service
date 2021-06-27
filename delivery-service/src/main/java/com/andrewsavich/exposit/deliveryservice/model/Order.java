@@ -3,17 +3,18 @@ package com.andrewsavich.exposit.deliveryservice.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.andrewsavich.exposit.deliveryservice.model.cart.Item;
 import com.andrewsavich.exposit.deliveryservice.model.product.Product;
 
 public class Order {
 	private int id;
 	private Client client;
-	private List<Product> products = new ArrayList<>();
+	private List<Item> items = new ArrayList<>();
 	
-	public Order(int id, Client client, List<Product> products) {
+	public Order(int id, Client client, List<Item> products) {
 		this.id = id;
 		this.client = client;
-		this.products = products;
+		this.items = products;
 	}
 
 	public int getId() {
@@ -32,12 +33,13 @@ public class Order {
 		this.client = client;
 	}
 
-	public List<Product> getProducts() {
-		return products;
+	public List<Item> getItems() {
+		return items;
 	}
 
-	public void setProducts(ArrayList<Product> products) {
-		this.products = products;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
+
 	
 }

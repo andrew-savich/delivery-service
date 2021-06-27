@@ -1,8 +1,10 @@
 package com.andrewsavich.exposit.deliveryservice.model.store;
 
 import com.andrewsavich.exposit.deliveryservice.model.product.Product;
+import com.andrewsavich.exposit.deliveryservice.service.PositionIDIncreaser;
 
 public class Position {
+	private int id;
 	private String title;
 	private Product product;
 	private double price;
@@ -15,6 +17,7 @@ public class Position {
 		this.quantity = quantity;
 		this.title = product.getTitle();
 		this.store = store;
+		this.id = PositionIDIncreaser.getPositionID();
 	}
 	
 	public Position(Product product, double price, Store store) {
@@ -23,8 +26,13 @@ public class Position {
 		this.quantity = 1;
 		this.title = product.getTitle();
 		this.store = store;
+		this.id = PositionIDIncreaser.getPositionID();
 	}
 	
+	public int getId() {
+		return id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -59,6 +67,10 @@ public class Position {
 	
 	public void decreaseQuantity() {
 		--this.quantity;
+	}
+	
+	public void decreaseQuantity(int quantity) {
+		this.quantity -= quantity;
 	}
 
 	public Store getStore() {

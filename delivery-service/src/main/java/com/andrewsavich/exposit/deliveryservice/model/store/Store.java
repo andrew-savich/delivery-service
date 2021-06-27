@@ -55,8 +55,8 @@ public class Store {
 		}
 	}
 	
-	public void removeProduct(Product product) {
-		getPositionByProduct(product).decreaseQuantity();
+	public void removeProducts(Product product, int quantity) {
+		getPositionByProduct(product).decreaseQuantity(quantity);
 	}
 
 	private boolean isExistPositionWithThisProduct(Product product) {

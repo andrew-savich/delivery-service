@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.Order;
+import com.andrewsavich.exposit.deliveryservice.model.cart.Item;
 import com.andrewsavich.exposit.deliveryservice.model.store.Position;
 import com.andrewsavich.exposit.deliveryservice.model.store.Store;
 
@@ -58,7 +59,7 @@ public class DeliveryService {
 		} else {
 			clients.put(newClient.getUsername(), newClient);
 		}
-		
+
 	}
 
 	public void removeClient(Client client) {
@@ -79,18 +80,18 @@ public class DeliveryService {
 
 		throw new IllegalArgumentException("Client " + username + " doesn't exist in our system");
 	}
-	
-	private Map<String, Client> getAllClients(){
+
+	private Map<String, Client> getAllClients() {
 		return clients;
 	}
-	
+
 	public void showAllClients() {
 		List<Client> clients = new ArrayList<>(getAllClients().values());
-		
-		if(clients.isEmpty()) {
+
+		if (clients.isEmpty()) {
 			System.out.println("Our system has no registered clients");
 		} else {
-			for(Client client: clients) {
+			for (Client client : clients) {
 				System.out.println("Client: " + client);
 			}
 		}
@@ -115,7 +116,8 @@ public class DeliveryService {
 		}
 
 		for (Position position : allPositions) {
-			System.out.println("Position: " + position.getTitle() + " type: " + position.getProduct().getType() + " price:" + position.getPrice() + ", quantiy: "
+			System.out.println("Position w/ id: " + position.getId() + " " + position.getTitle() + " type: "
+					+ position.getProduct().getType() + " price:" + position.getPrice() + ", quantiy: "
 					+ position.getQuantity() + ", store: " + position.getStore().getTitle());
 		}
 	}
@@ -166,6 +168,61 @@ public class DeliveryService {
 
 		return positionsByPrice;
 
+	}
+
+	public Position getPositionById(int id) {
+		return getAllPositions().stream().filter(position -> position.getId() == id).findAny().orElse(null);
+	}
+
+	public void addProductsToClientCart(Client client, int positionId, int quantity) {
+		if (!clients.containsKey(client.getUsername())) {
+			System.out.println("Client: " + client.getUsername() + " doesn't exist in our system");
+			return;
+		}
+
+		Position position = getPositionById(positionId);
+
+		if (position == null) {
+			System.out.println("Position id: " + positionId + " doesn't exist in our system");
+			return;
+		}
+
+		if (position.getQuantity() < quantity) {
+			System.out.println("No enought quantity products");
+			return;
+		}
+
+		Item cartItem = new Item(position, quantity);
+		client.getCart().addItem(cartItem);
+
+		position.getStore().removeProducts(position.getProduct(), quantity);
+
+	}
+
+	public void showClientCart(Client client) {
+		if (client.getCart().getItems().isEmpty()) {
+			System.out.println("Client: " + client.getFullName() + " has empty cart");
+		} else {
+			System.out.println(client.getFullName() + " has follow items in the his cart:");
+			for (Item item : client.getCart().getItems()) {
+				System.out.println(item);
+			}
+		}
+
+	}
+
+	public void deliverProductsToClient(Client client) {
+		if (client.getCart().getItems().isEmpty()) {
+			System.out.println("Client: " + client.getFullName() + " has no items in his cart");
+			return;
+		}
+
+		Order order = new Order(orderId++, client, client.getCart().getItems());
+		orders.add(order);
+
+		// some process for to deliver products to client
+
+		client.getCart().getItems().removeAll(client.getCart().getItems());
 	}
 
 }
