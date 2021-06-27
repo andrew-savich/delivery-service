@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.Order;
 import com.andrewsavich.exposit.deliveryservice.model.cart.Item;
+import com.andrewsavich.exposit.deliveryservice.model.product.ProductType;
 import com.andrewsavich.exposit.deliveryservice.model.store.Position;
 import com.andrewsavich.exposit.deliveryservice.model.store.Store;
 
@@ -143,12 +144,23 @@ public class DeliveryService {
 	public List<Position> getPositionsFormStore(Store store) {
 		if (!stores.contains(store)) {
 			throw new IllegalArgumentException(
-					"The store + " + store.getTitle() + " hasn't been registerein our service");
+					"The store + " + store.getTitle() + " hasn't been registered in our service");
 		}
 
 		return store.getPositions();
 	}
 	
+	public void showPositionsByStore(Store store) {
+		for(Position position : store.getPositions()) {
+			System.out.println(position);
+		}
+	}
+	
+	public void showPositionsByProductTypes(ProductType ... types) {
+		for(Position position : getAllPositions()) {
+			System.out.println(position);
+		}
+	}
 
 	public List<Position> getPositionsByPrice(double minPrice, double maxPrice) {
 		if (minPrice < 0 || maxPrice <= 0) {
