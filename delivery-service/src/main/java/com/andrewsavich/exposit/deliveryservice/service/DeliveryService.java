@@ -148,6 +148,7 @@ public class DeliveryService {
 
 		return store.getPositions();
 	}
+	
 
 	public List<Position> getPositionsByPrice(double minPrice, double maxPrice) {
 		if (minPrice < 0 || maxPrice <= 0) {

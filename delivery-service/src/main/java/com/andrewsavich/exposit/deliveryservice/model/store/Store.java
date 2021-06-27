@@ -45,18 +45,33 @@ public class Store {
 		}
 	}
 
-	
 	public void addProduct(Product product, int quantity) {
 		if (isExistPositionWithThisProduct(product)) {
 			getPositionByProduct(product).increaseQuantity(quantity);
 		} else {
-			System.out
-					.println("Position " + product.getTitle() + " doesn't exist, you should create position with price and quantity");
+			System.out.println("Position " + product.getTitle()
+					+ " doesn't exist, you should create position with price and quantity");
 		}
 	}
-	
+
 	public void removeProducts(Product product, int quantity) {
-		getPositionByProduct(product).decreaseQuantity(quantity);
+		Position position = getPositionByProduct(product);
+		
+		if (position == null) {
+			System.out.println("No positions with this product " + product.getTitle());
+			return;
+		}
+		
+		position.decreaseQuantity(quantity);
+		
+		if(position.getQuantity() == 0) {
+			position.getStore().removePosition(position);
+		}
+		
+	}
+
+	private void removePosition(Position position) {
+		positions.remove(position);
 	}
 
 	private boolean isExistPositionWithThisProduct(Product product) {
@@ -68,17 +83,17 @@ public class Store {
 
 		return false;
 	}
-	
+
 	private Position getPositionByProduct(Product product) {
 		for (Position position : positions) {
 			if (position.getTitle().equals(product.getTitle())) {
 				return position;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public void showAllPositions() {
 		if (positions.isEmpty()) {
 			System.out.println("Our delivery servise has no positions");
@@ -89,7 +104,7 @@ public class Store {
 			System.out.println(position);
 		}
 	}
-	
+
 	public List<Position> getPositions() {
 		return positions;
 	}
