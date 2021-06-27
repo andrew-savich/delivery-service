@@ -1,4 +1,4 @@
-package com.andrewsavich.exposit.deliveryservice.model;
+package com.andrewsavich.exposit.deliveryservice.model.store;
 
 import java.util.ArrayList;
 import java.util.Comparator;

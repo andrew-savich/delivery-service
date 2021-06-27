@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.Order;
-import com.andrewsavich.exposit.deliveryservice.model.Store;
-import com.andrewsavich.exposit.deliveryservice.model.Position;
+import com.andrewsavich.exposit.deliveryservice.model.store.Position;
+import com.andrewsavich.exposit.deliveryservice.model.store.Store;
 
 public class DeliveryService {
 	private String title;

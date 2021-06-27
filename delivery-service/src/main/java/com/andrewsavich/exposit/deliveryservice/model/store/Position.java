@@ -1,4 +1,6 @@
-package com.andrewsavich.exposit.deliveryservice.model;
+package com.andrewsavich.exposit.deliveryservice.model.store;
+
+import com.andrewsavich.exposit.deliveryservice.model.Product;
 
 public class Position {
 	private String title;
