@@ -1,0 +1,27 @@
+[
+	{
+		"title": "iPhoneX Grey",
+		"description": "description for iphone x",
+		"type": "SMARTPHONE"
+	},
+	{
+		"title": "Samsung S20",
+		"description": "description for Samsung S20",
+		"type": "SMARTPHONE"
+	},
+	{
+		"title": "iMac Pro",
+		"description": "description for iMac Pro",
+		"type": "LAPTOP"
+	},
+	{
+		"title": "Asus ZenBook",
+		"description": "description for ZenBook",
+		"type": "LAPTOP"
+	},
+	{
+		"title": "Nike T-Shirt",
+		"description": "description for Nike T-Shirt",
+		"type": "TSHIRT"
+	}
+]

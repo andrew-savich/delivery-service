@@ -165,8 +165,6 @@ public class DeliveryService {
 
 		}
 	}
-	
-	
 
 	public List<Position> getPositionsByPrice(double minPrice, double maxPrice) {
 		if (minPrice < 0 || maxPrice <= 0) {
@@ -226,6 +224,7 @@ public class DeliveryService {
 			for (Item item : client.getCart().getItems()) {
 				System.out.println(item);
 			}
+			System.out.println("Summary cart price: " + client.getCart().getSummaryCartPrice());
 		}
 
 	}
@@ -242,6 +241,14 @@ public class DeliveryService {
 		// some process for to deliver products to client
 
 		client.getCart().getItems().removeAll(client.getCart().getItems());
+	}
+
+	public void showAllOrders() {
+		System.out.println("Done orderds:");
+		for(Order order : orders) {
+			System.out.println(order);
+		}
+		
 	}
 
 }

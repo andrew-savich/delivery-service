@@ -1,0 +1,12 @@
+[
+	{
+		"username": "andrewsavich",
+		"fullName": "Andrew Savich",
+		"address": "Andrew's address"
+	},
+	{
+		"username": "someclient",
+		"fullName": "Some Client",
+		"address": "Some client's address"
+	}
+]

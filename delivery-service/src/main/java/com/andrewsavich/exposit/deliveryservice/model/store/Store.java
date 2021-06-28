@@ -11,6 +11,10 @@ public class Store {
 	private String title;
 	private String description;
 	private List<Position> positions;
+	
+	public Store() {
+		this.positions = new ArrayList<>();
+	}
 
 	public Store(String title, String description) {
 		this.title = title;

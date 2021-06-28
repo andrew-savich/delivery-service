@@ -8,12 +8,12 @@ import com.andrewsavich.exposit.deliveryservice.model.cart.Item;
 public class Order {
 	private int id;
 	private Client client;
-	private List<Item> items = new ArrayList<>();
+	private List<Item> items;
 	
-	public Order(int id, Client client, List<Item> products) {
+	public Order(int id, Client client, List<Item> items) {
 		this.id = id;
 		this.client = client;
-		this.items = products;
+		this.items = new ArrayList<>(items);
 	}
 
 	public int getId() {
@@ -40,5 +40,11 @@ public class Order {
 		this.items = items;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", client=" + client + ", items=" + items + "]";
+	}
+
+	
 	
 }

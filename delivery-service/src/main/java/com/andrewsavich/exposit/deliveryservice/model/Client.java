@@ -8,6 +8,10 @@ public class Client {
 	private String address;
 	private Cart cart;
 	
+	public Client() {
+		this.cart = new Cart(this);
+	}
+
 	public Client(String username, String fullName, String address) {
 		this.username = username;
 		this.fullName = fullName;

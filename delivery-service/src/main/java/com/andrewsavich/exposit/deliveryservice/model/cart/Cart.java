@@ -23,13 +23,6 @@ public class Cart {
 		items.add(item);
 	}
 	
-	//gonna do
-	public void removeItem(Item item) {
-		if (items.contains(item)) {
-			
-		}
-	}
-
 	public Client getClient() {
 		return client;
 	}
