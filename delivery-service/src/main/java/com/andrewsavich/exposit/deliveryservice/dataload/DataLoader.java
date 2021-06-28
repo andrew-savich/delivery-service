@@ -1,4 +1,4 @@
-package com.andrewsavich.exposit.deliveryservice.dataload.product;
+package com.andrewsavich.exposit.deliveryservice.dataload;
 
 import java.util.List;
 

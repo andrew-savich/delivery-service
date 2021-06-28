@@ -156,7 +156,7 @@ public class DeliveryService {
 		}
 	}
 
-	public void showPositionsByProductTypes(ProductType type) {
+	public void showPositionsByProductType(ProductType type) {
 		System.out.println("Products of type " + type + ": ");
 		for (Position position : getAllPositions()) {
 			if (position.getProduct().getType().is(type)) {

@@ -2,8 +2,8 @@ package com.andrewsavich.exposit.deliveryservice;
 
 import java.util.List;
 
-import com.andrewsavich.exposit.deliveryservice.dataload.product.DataLoader;
-import com.andrewsavich.exposit.deliveryservice.dataload.product.DataLoaderFromJson;
+import com.andrewsavich.exposit.deliveryservice.dataload.DataLoader;
+import com.andrewsavich.exposit.deliveryservice.dataload.DataLoaderFromJson;
 import com.andrewsavich.exposit.deliveryservice.model.Client;
 import com.andrewsavich.exposit.deliveryservice.model.product.Product;
 import com.andrewsavich.exposit.deliveryservice.model.store.Store;
